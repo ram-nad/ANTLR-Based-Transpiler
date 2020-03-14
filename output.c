@@ -22,7 +22,9 @@ ch_bool c;
 } data;
 
 ch_uint64 data__func1 (data *this, ch_int64 a, ch_int64 b) {
-return (ch_uint64)(a + b) + (ch_uint64)((*this).b);
+ch_int64 c = (*this).a;
+ch_int64 d = c;
+return (ch_uint64)(a + b + c * d) + (ch_uint64)((*this).b);
 }
 ch_int64 data__func2 (data *this) {
 return (ch_int64)((*this).a + (*this).b);

@@ -4,7 +4,8 @@ record data{
     var c:bool;
 
     proc func1(a:int, b:int): uint{
-        return (a + b):uint + this.b:uint;
+        var c, d:int = this.a;
+        return (a + b + c*d):uint + this.b:uint;
     }
 
     proc func2(): int{
