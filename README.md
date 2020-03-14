@@ -15,3 +15,7 @@ Currently implemented constructs:
 - Variable Declaration
 
 - Cast Expression
+
+## Example
+
+This Code has been used to transpile `test.chpl` to `output.c`.
