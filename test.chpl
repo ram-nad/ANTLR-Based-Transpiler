@@ -16,3 +16,7 @@ record data{
 proc globalFunc(a:data, b:data): uint(32){
     return a.b + b.b;
 }
+
+proc globalFunc2(a:data, b:int, c:int): uint{
+    return a.func1(b, c);
+}

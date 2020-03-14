@@ -32,3 +32,6 @@ return (ch_int64)((*this).a + (*this).b);
 ch_uint32 globalFunc (data a, data b) {
 return a.b + b.b;
 }
+ch_uint64 globalFunc2 (data a, ch_int64 b, ch_int64 c) {
+return data__func1(&(a),b, c);
+}

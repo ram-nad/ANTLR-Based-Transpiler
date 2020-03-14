@@ -6,10 +6,12 @@ ANTLR Grammar Files can be found under `grammar` folder. This project uses Visit
 
 Currently implemented constructs:
 
- - Functions
+- Functions
 
- - Records (Very Minimal, Treating them similar to structs in C)
+- Records (Very Minimal, Treating them similar to structs in C)
 
- - Methods
+- Methods
 
- - Variable Declaration
+- Variable Declaration
+
+- Cast Expression
