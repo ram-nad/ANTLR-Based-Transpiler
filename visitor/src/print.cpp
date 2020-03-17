@@ -74,8 +74,8 @@ void Visitor::printHeader() {
   outFile << "#define " + Visitor::BUILT_IN_TYPES_PRINT[10] + " float" << '\n';
   outFile << "#define " + Visitor::BUILT_IN_TYPES_PRINT[11] + " double" << '\n';
   outFile << "#define " + Visitor::BUILT_IN_TYPES_PRINT[12] + " char*" << '\n';
-  outFile << "#define " + Visitor::TRUE_NAME + "1" << '\n';
-  outFile << "#define " + Visitor::FALSE_NAME + "0" << '\n';
+  outFile << "#define " + Visitor::TRUE_NAME + " 1" << '\n';
+  outFile << "#define " + Visitor::FALSE_NAME + " 0" << '\n';
   outFile << "\n\n";
 }
 

@@ -90,15 +90,13 @@ antlrcpp::Any Visitor::visitRecDecl(BasicParser::RecDeclContext* ctx) {
   }
   insertRecord(record);
   for (int i = 0; i < stmts.size(); i++) {
-    currentRecord = &record;
-    currentFunction = &record.methods.find(stmts[i].first)->second;
+    currentRecord = &recordsList[recordsList.size() - 1];
+    currentFunction = &(currentRecord->methods.find(stmts[i].first)->second);
     printMethodSignature(record, record.methods.find(stmts[i].first)->second);
     this->visitBlckStmt(stmts[i].second);
     currentFunction = nullptr;
     currentRecord = nullptr;
   }
-  recordsList.pop_back();
-  insertRecord(record);
   return nullptr;
 }
 
