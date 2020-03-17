@@ -11,8 +11,8 @@
 #define ch_real32 float
 #define ch_real64 double
 #define ch_string char*
-#define ch_true_t1
-#define ch_false_t0
+#define ch_true_t 1
+#define ch_false_t 0
 
 
 typedef struct data {
