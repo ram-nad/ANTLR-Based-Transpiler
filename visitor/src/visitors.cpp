@@ -81,6 +81,12 @@ antlrcpp::Any Visitor::visitRecDecl(BasicParser::RecDeclContext* ctx) {
             DetailedError("NameError", ctx->funcDef(i)->getStart()->getLine(),
                           ctx->funcDef(i)->getStart()->getCharPositionInLine(),
                           "Already declared a method with this name."));
+      } else if (record.members.find(func.type.functionName) !=
+                 record.members.end()) {
+        Error.addError(
+            DetailedError("NameError", ctx->funcDef(i)->getStart()->getLine(),
+                          ctx->funcDef(i)->getStart()->getCharPositionInLine(),
+                          "Already declared a member with this name."));
       } else {
         func.type.functionPrintName = name + "__" + func.type.functionName;
         record.methods.insert({func.type.functionName, func.type});
@@ -245,16 +251,16 @@ antlrcpp::Any Visitor::visitMul(BasicParser::MulContext* ctx) {
   expressionData rhs = this->visitExpr(ctx->expr(1)).as<expressionData>();
 
   if (lhs.type == -1 || rhs.type == -1) {
-    return expressionData{-1, ""};
+    return expressionData{-1, "", false};
   }
 
-  if (lhs.type < 1 || lhs.type > 11 || rhs.type < 1 || lhs.type > 11) {
+  if (lhs.type < 1 || lhs.type > 11 || rhs.type < 1 || rhs.type > 11) {
     Error.addError(DetailedError(
         "TypeError", ctx->op->getLine(), ctx->op->getCharPositionInLine(),
         "%s operator is not supported for %s and %s expressions.",
         ctx->op->getText().c_str(), getName(lhs.type).c_str(),
         getName(rhs.type).c_str()));
-    return expressionData{-1, ""};
+    return expressionData{-1, "", false};
   } else {
     return expressionData{
         std::max(lhs.type, rhs.type),
@@ -271,7 +277,7 @@ antlrcpp::Any Visitor::visitAdd(BasicParser::AddContext* ctx) {
     return expressionData{-1, "", false};
   }
 
-  if (lhs.type < 1 || lhs.type > 11 || rhs.type < 1 || lhs.type > 11) {
+  if (lhs.type < 1 || lhs.type > 11 || rhs.type < 1 || rhs.type > 11) {
     Error.addError(DetailedError(
         "TypeError", ctx->op->getLine(), ctx->op->getCharPositionInLine(),
         "%s operator is not supported for %s and %s expressions.",
@@ -343,6 +349,9 @@ antlrcpp::Any Visitor::visitAsg(BasicParser::AsgContext* ctx) {
     return expressionData{-1, "", false};
   } else {
     expressionData expr = this->visitExpr(ctx->expr()).as<expressionData>();
+    if (expr.type == -1) {
+      return expressionData{-1, "", false};
+    }
     if (expr.type != value.type) {
       if (expr.type < 1 || value.type < 1 || expr.type > 11 ||
           value.type > 11) {
